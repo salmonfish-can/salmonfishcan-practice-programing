@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+    <meta charset="UTF-8">
+    <title>クリックするやつ</title>
+    <style>
+        body {background-color:darkcyan}
+    </style>
+</head>
+<body>
+    <h1>クリックするやつです</h1>
+    <p id = "control"></p>
+    <p>
+    <span id = "number">0</span> 
+    <span>現在の数値</span>
+    </p>
+    <p>
+    <span id = "inc">1</span>
+    <span>押したらこれだけ増えるよ</span>
+    </p>
+    <p>
+    <span id ="incps">0</span>
+    <span>一秒間に増える数</span>
+    </p>
+    <input type="button" id = "click" value = "クリック！">
+    <p>一回のクリックでもらえる数を増やす</p>
+    <p>
+        <input type="button" id="boost1" value = "5ふやす">
+        <span>価格:</span>
+        <span id = "price1">100</span>
+    </p>
+    <script>
+        const control = document.getElementById('control')
+        let expl = ("")
+        const dispnumber = document.getElementById('number')
+        const dispinc = document.getElementById('inc')
+        const click = document.getElementById('click')
+        const boost1 = document.getElementById('boost1')
+        const dispplace1 = document.getElementById('price1')
+        let buttonnumber = 0
+        let number = 0
+        let inc = 1
+        let price1 = 100
+        let res = 0
+        function onceinc({number,inc,buttonnumber,price}){
+            let temp = 0;
+            if(buttonnumber == 1 && number >= price){
+                return({newnumber: number - price,
+                    newinc: inc + 5,
+                    newprice: price * 1.5
+                })
+            }
+        }
+        click.addEventListener('click', () => {
+            number += inc
+            dispnumber.textContent = number
+            expl = null
+            control.textContent = expl
+        })
+        function renew(price){
+            dispnumber.textContent = number
+            dispinc.textContent = inc
+            if(buttonnumber == 1){
+                dispplace1.textContent = price
+            }
+        }
+        boost1.addEventListener('click', () => {
+            buttonnumber = 1
+            res = onceinc({number: number,
+                inc: inc,
+                buttonnumber: buttonnumber,
+                price:  price1
+            })
+            if(res !== undefined){
+                number = Math.floor(res.newnumber)
+                inc = Math.floor(res.newinc)
+                price1 = Math.floor(res.newprice)
+                renew(price1)
+            }
+            else{
+                expl = ("お金がたりません")
+                control.textContent = expl
+            }
+        })
+    </script>
+</body>
