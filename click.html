@@ -38,7 +38,7 @@
     <p>
     <input type="button" id="boost1ps" value = "1ふやす">
     <span>価格:</span>
-    <span id = "cost1ps">500</span>
+    <span id = "cost1ps">150</span>
     </p>
     <script>
         const control = document.getElementById('control')
@@ -59,7 +59,7 @@
         let incps = 0
         let cost1 = 100
         let cost2 = 1000
-        let cost1ps = 500
+        let cost1ps = 150
         let res = 0
         function onceinc({number,inc,buttonnumber,cost}){
             let temp = 0;
@@ -80,7 +80,7 @@
             if(buttonnumber == 1 && number >= cost){
                 return({newnumber: number - cost,
                     newincps: incps + 1,
-                    newcost: cost * 1.5
+                    newcost: cost * 1.1
                 })
             }
         }
