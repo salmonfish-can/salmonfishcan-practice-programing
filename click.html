@@ -29,6 +29,11 @@
         <span>価格:</span>
         <span id = "price1">100</span>
     </p>
+    <p>
+    <input type="button" id="boost2" value = "20ふやす">
+    <span>価格:</span>
+    <span id = "price2">1000</span>
+    </p>
     <script>
         const control = document.getElementById('control')
         let expl = ("")
@@ -36,17 +41,26 @@
         const dispinc = document.getElementById('inc')
         const click = document.getElementById('click')
         const boost1 = document.getElementById('boost1')
+        const boost2 = document.getElementById('boost2')
         const dispplace1 = document.getElementById('price1')
+        const dispplace2 = document.getElementById('price2')
         let buttonnumber = 0
         let number = 0
         let inc = 1
         let price1 = 100
+        let price2 = 1000
         let res = 0
         function onceinc({number,inc,buttonnumber,price}){
             let temp = 0;
             if(buttonnumber == 1 && number >= price){
                 return({newnumber: number - price,
                     newinc: inc + 5,
+                    newprice: price * 1.5
+                })
+            }
+            if(buttonnumber == 2 && number >= price){
+                return({newnumber: number - price,
+                    newinc: inc + 20,
                     newprice: price * 1.5
                 })
             }
@@ -63,6 +77,9 @@
             if(buttonnumber == 1){
                 dispplace1.textContent = price
             }
+            if(buttonnumber ==2){
+                dispplace2.textContent = price
+            }
         }
         boost1.addEventListener('click', () => {
             buttonnumber = 1
@@ -76,6 +93,24 @@
                 inc = Math.floor(res.newinc)
                 price1 = Math.floor(res.newprice)
                 renew(price1)
+            }
+            else{
+                expl = ("お金がたりません")
+                control.textContent = expl
+            }
+        })
+        boost2.addEventListener('click', () => {
+            buttonnumber = 2
+            res = onceinc({number: number,
+                inc: inc,
+                buttonnumber: buttonnumber,
+                price:  price2
+            })
+            if(res !== undefined){
+                number = Math.floor(res.newnumber)
+                inc = Math.floor(res.newinc)
+                price2 = Math.floor(res.newprice)
+                renew(price2)
             }
             else{
                 expl = ("お金がたりません")
