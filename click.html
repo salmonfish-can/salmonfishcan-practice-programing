@@ -27,41 +27,60 @@
     <p>
         <input type="button" id="boost1" value = "5ふやす">
         <span>価格:</span>
-        <span id = "price1">100</span>
+        <span id = "cost1">100</span>
     </p>
     <p>
     <input type="button" id="boost2" value = "20ふやす">
     <span>価格:</span>
-    <span id = "price2">1000</span>
+    <span id = "cost2">1000</span>
+    </p>
+    <p>一秒間にもらえる数を増やす</p>
+    <p>
+    <input type="button" id="boost1ps" value = "1ふやす">
+    <span>価格:</span>
+    <span id = "cost1ps">500</span>
     </p>
     <script>
         const control = document.getElementById('control')
         let expl = ("")
+        const dispincps = document.getElementById('incps')
         const dispnumber = document.getElementById('number')
         const dispinc = document.getElementById('inc')
         const click = document.getElementById('click')
         const boost1 = document.getElementById('boost1')
         const boost2 = document.getElementById('boost2')
-        const dispplace1 = document.getElementById('price1')
-        const dispplace2 = document.getElementById('price2')
+        const boost1ps = document.getElementById('boost1ps')
+        const dispcost1 = document.getElementById('cost1')
+        const dispcost2 = document.getElementById('cost2')
+        const dispcost1ps = document.getElementById('cost1ps')
         let buttonnumber = 0
         let number = 0
         let inc = 1
-        let price1 = 100
-        let price2 = 1000
+        let incps = 0
+        let cost1 = 100
+        let cost2 = 1000
+        let cost1ps = 500
         let res = 0
-        function onceinc({number,inc,buttonnumber,price}){
+        function onceinc({number,inc,buttonnumber,cost}){
             let temp = 0;
-            if(buttonnumber == 1 && number >= price){
-                return({newnumber: number - price,
+            if(buttonnumber == 1 && number >= cost){
+                return({newnumber: number - cost,
                     newinc: inc + 5,
-                    newprice: price * 1.5
+                    newcost: cost * 1.5
                 })
             }
-            if(buttonnumber == 2 && number >= price){
-                return({newnumber: number - price,
+            if(buttonnumber == 2 && number >= cost){
+                return({newnumber: number - cost,
                     newinc: inc + 20,
-                    newprice: price * 1.5
+                    newcost: cost * 1.5
+                })
+            }
+        }
+        function psinc({number,incps,buttonnumber,cost}){
+            if(buttonnumber == 1 && number >= cost){
+                return({newnumber: number - cost,
+                    newincps: incps + 1,
+                    newcost: cost * 1.5
                 })
             }
         }
@@ -71,14 +90,21 @@
             expl = null
             control.textContent = expl
         })
-        function renew(price){
+        function renew(cost){
             dispnumber.textContent = number
             dispinc.textContent = inc
             if(buttonnumber == 1){
-                dispplace1.textContent = price
+                dispcost1.textContent = cost
             }
-            if(buttonnumber ==2){
-                dispplace2.textContent = price
+            if(buttonnumber == 2){
+                dispcost2.textContent = cost
+            }
+        }
+        function renewps(cost){
+            dispnumber.textContent = number
+            dispincps.textContent = inc
+            if(buttonnumber == 1){
+                dispcost1ps.textContent = cost
             }
         }
         boost1.addEventListener('click', () => {
@@ -86,13 +112,13 @@
             res = onceinc({number: number,
                 inc: inc,
                 buttonnumber: buttonnumber,
-                price:  price1
+                cost:  cost1
             })
             if(res !== undefined){
                 number = Math.floor(res.newnumber)
                 inc = Math.floor(res.newinc)
-                price1 = Math.floor(res.newprice)
-                renew(price1)
+                cost1 = Math.floor(res.newcost)
+                renew(cost1)
             }
             else{
                 expl = ("お金がたりません")
@@ -104,18 +130,40 @@
             res = onceinc({number: number,
                 inc: inc,
                 buttonnumber: buttonnumber,
-                price:  price2
+                cost:  cost2
             })
             if(res !== undefined){
                 number = Math.floor(res.newnumber)
                 inc = Math.floor(res.newinc)
-                price2 = Math.floor(res.newprice)
-                renew(price2)
+                cost2 = Math.floor(res.newcost)
+                renew(cost2)
             }
             else{
                 expl = ("お金がたりません")
                 control.textContent = expl
             }
         })
+        boost1ps.addEventListener('click', () => {
+            buttonnumber = 1
+            res = psinc({number: number,
+                incps: incps,
+                buttonnumber: buttonnumber,
+                cost:  cost1ps
+            })
+            if(res !== undefined){
+                number = Math.floor(res.newnumber)
+                incps = Math.floor(res.newincps)
+                cost1ps = Math.floor(res.newcost)
+                renewps(cost1ps)
+            }
+            else{
+                expl = ("お金がたりません")
+                control.textContent = expl
+            }
+        })
+        setInterval(() => {
+            number += incps
+            dispnumber.textContent = number
+        }, 1000);
     </script>
 </body>
