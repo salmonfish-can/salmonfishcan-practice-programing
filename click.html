@@ -41,9 +41,15 @@
     <span id = "cost3">2000</span>
     </p>
     <p>一秒間にもらえる数を増やす</p>
+    <p>
     <input type="button" id="boost1ps" value = "1ふやす">
     <span>価格:</span>
     <span id = "cost1ps">150</span>
+    </p>
+    <p>
+    <input type="button" id="boost2ps" value = "5ふやす">
+    <span>価格:</span>
+    <span id = "cost2ps">1000</span>
     </p>
     <script>
         const control = document.getElementById('control')
@@ -56,10 +62,12 @@
         const boost2 = document.getElementById('boost2')
         const boost3 = document.getElementById('boost3')
         const boost1ps = document.getElementById('boost1ps')
+        const boost2ps = document.getElementById('boost2ps')
         const dispcost1 = document.getElementById('cost1')
         const dispcost2 = document.getElementById('cost2')
         const dispcost3 = document.getElementById('cost3')
         const dispcost1ps = document.getElementById('cost1ps')
+        const dispcost2ps = document.getElementById('cost2ps')
         let buttonnumber = 0
         let number = 0
         let inc = 1
@@ -68,6 +76,7 @@
         let cost2 = 1000
         let cost3 = 2000
         let cost1ps = 150
+        let cost2ps = 1000
         let res = 0
         function onceinc({number,inc,buttonnumber,cost}){
             let temp = 0;
@@ -97,6 +106,12 @@
                     newcost: cost * 1.1
                 })
             }
+            if(buttonnumber == 2 && number >= cost){
+                return({newnumber: number - cost,
+                    newincps: incps + 5,
+                    newcost: cost * 1.1
+                })
+            }
         }
         click.addEventListener('pointerdown', () => {
             number += inc
@@ -122,6 +137,9 @@
             dispincps.textContent = incps
             if(buttonnumber == 1){
                 dispcost1ps.textContent = cost
+            }
+            if(buttonnumber == 2){
+                dispcost2ps.textContent = cost
             }
         }
         boost1.addEventListener('click', () => {
@@ -190,6 +208,24 @@
                 incps = Math.floor(res.newincps)
                 cost1ps = Math.floor(res.newcost)
                 renewps(cost1ps)
+            }
+            else{
+                expl = ("お金がたりません")
+                control.textContent = expl
+            }
+        })
+        boost2ps.addEventListener('click', () => {
+            buttonnumber = 2
+            res = psinc({number: number,
+                incps: incps,
+                buttonnumber: buttonnumber,
+                cost:  cost2ps
+            })
+            if(res !== undefined){
+                number = Math.floor(res.newnumber)
+                incps = Math.floor(res.newincps)
+                cost2ps = Math.floor(res.newcost)
+                renewps(cost2ps)
             }
             else{
                 expl = ("お金がたりません")
