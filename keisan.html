@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+    <meta charset="UTF-8">
+    <title>暗算の練習</title>
+    <style>
+        body {background-color:darkcyan}
+    </style>
+    <link rel="icon" href="favicon.ico">
+</head>
+<body>
+    <h1>暗算の練習</h1>
+    <span>
+        <input type="button" id = "digit3plus" value = "3桁足し算">
+        <input type="button" id = "digit4plus" value = "4桁足し算">
+    </span>
+        <div style="text-align:center">
+        <p>
+        <span id = "num1"></span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span id = "sign"></span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span id = "num2"></span>
+        </p>
+        <p>
+            <input type="text" id ="useranswer" placeholder="ここに解答を入力(半角で!)">
+            <input type="button" id = "answerbutton" value="解答">
+        </p>
+        <p id = "correct"></p>
+    </div>
+    <script>
+        const num1 = document.getElementById('num1')
+        const num2 = document.getElementById('num2')
+        const sign = document.getElementById('sign')
+        const usercontent = document.getElementById('useranswer')
+        const answerbutton = document.getElementById('answerbutton')
+        const correct = document.getElementById('correct')
+        const digit3plus = document.getElementById('digit3plus')
+        const digit4plus = document.getElementById('digit4plus')
+        let answer = 0
+        let min = 0
+        let max = 0
+        let i = 0
+        let m = 0
+        let res = 0
+        function generate(min,max){
+            res = Math.floor(Math.random() * (max - min + 1)) + min
+            return(res)
+        }
+        function reset(){
+            answer = 0
+            min = 0
+            max = 0
+            i = 0
+            m = 0
+        }
+        digit3plus.addEventListener('click', () => {
+            correct.textContent = ('')
+            min = 100
+            max = 999
+            i = generate(min,max)
+            m = generate(min,max)
+            answer = i + m
+            sign.textContent = ('+')
+            num1.textContent = i
+            num2.textContent = m
+        })
+        digit4plus.addEventListener('click', () => {
+            correct.textContent = ('')
+            min = 1000
+            max = 9999
+            i = generate(min,max)
+            m = generate(min,max)
+            answer = i + m
+            sign.textContent = ('+')
+            num1.textContent = i
+            num2.textContent = m
+        })
+        answerbutton.addEventListener('click', () => {
+            if(answer == 0){
+                correct.textContent = ('問題を選んでから解答してください！')
+                return;
+            }
+        const useranswer = usercontent.value
+            if(useranswer == answer){
+                correct.textContent = ('正解！')
+            }
+            else{
+                correct.textContent = ('不正解...正しい回答は    ' + answer)
+            }
+            reset()
+        })
+    </script>
+</body>
