@@ -40,6 +40,10 @@
     <span>価格:</span>
     <span id = "cost3">2000</span>
     </p>
+    <input type="button" id="boost4" value = "300ふやす">
+    <span>価格:</span>
+    <span id = "cost4">10000</span>
+    </p>
     <p>一秒間にもらえる数を増やす</p>
     <p>
     <input type="button" id="boost1ps" value = "1ふやす">
@@ -61,11 +65,13 @@
         const boost1 = document.getElementById('boost1')
         const boost2 = document.getElementById('boost2')
         const boost3 = document.getElementById('boost3')
+        const boost4 = document.getElementById('boost4')
         const boost1ps = document.getElementById('boost1ps')
         const boost2ps = document.getElementById('boost2ps')
         const dispcost1 = document.getElementById('cost1')
         const dispcost2 = document.getElementById('cost2')
         const dispcost3 = document.getElementById('cost3')
+        const dispcost4 = document.getElementById('cost4')
         const dispcost1ps = document.getElementById('cost1ps')
         const dispcost2ps = document.getElementById('cost2ps')
         let buttonnumber = 0
@@ -75,6 +81,7 @@
         let cost1 = 100
         let cost2 = 1000
         let cost3 = 2000
+        let cost4 = 10000
         let cost1ps = 150
         let cost2ps = 1000
         let res = 0
@@ -95,6 +102,12 @@
             if(buttonnumber == 3 && number >= cost){
                 return({newnumber: number - cost,
                     newinc: inc + 50,
+                    newcost: cost * 1.3
+                })
+            }
+            if(buttonnumber == 4 && number >= cost){
+                return({newnumber: number - cost,
+                    newinc: inc + 300,
                     newcost: cost * 1.3
                 })
             }
@@ -130,6 +143,9 @@
             }
             if(buttonnumber == 3){
                 dispcost3.textContent = cost
+            }
+            if(buttonnumber == 4){
+                dispcost4.textContent = cost
             }
         }
         function renewps(cost){
@@ -190,6 +206,24 @@
                 inc = Math.floor(res.newinc)
                 cost3 = Math.floor(res.newcost)
                 renew(cost3)
+            }
+            else{
+                expl = ("お金がたりません")
+                control.textContent = expl
+            }
+        })
+        boost4.addEventListener('click', () => {
+            buttonnumber = 4
+            res = onceinc({number: number,
+                inc: inc,
+                buttonnumber: buttonnumber,
+                cost:  cost4
+            })
+            if(res !== undefined){
+                number = Math.floor(res.newnumber)
+                inc = Math.floor(res.newinc)
+                cost4 = Math.floor(res.newcost)
+                renew(cost4)
             }
             else{
                 expl = ("お金がたりません")
