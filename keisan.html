@@ -13,6 +13,7 @@
     <span>
         <input type="button" id = "digit3plus" value = "3桁足し算">
         <input type="button" id = "digit4plus" value = "4桁足し算">
+        <input type="button" id = "digit5plus" value = "5桁足し算">
     </span>
         <div style="text-align:center">
         <p>
@@ -37,6 +38,7 @@
         const correct = document.getElementById('correct')
         const digit3plus = document.getElementById('digit3plus')
         const digit4plus = document.getElementById('digit4plus')
+        const digit5plus = document.getElementById('digit5plus')
         let answer = 0
         let min = 0
         let max = 0
@@ -76,6 +78,18 @@
             num1.textContent = i
             num2.textContent = m
         })
+        digit5plus.addEventListener('click', () => {
+            correct.textContent = ('')
+            min = 10000
+            max = 50000
+            i = generate(min,max)
+            m = generate(min,max)
+            answer = i + m
+            sign.textContent = ('+')
+            num1.textContent = i
+            num2.textContent = m
+        })
+
         answerbutton.addEventListener('click', () => {
             if(answer == 0){
                 correct.textContent = ('問題を選んでから解答してください！')
