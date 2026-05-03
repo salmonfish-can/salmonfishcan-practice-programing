@@ -15,6 +15,7 @@
         <input type="button" id = "digit4plus" value = "4桁足し算">
         <input type="button" id = "digit5plus" value = "5桁足し算">
         <input type="button" id = "digit6plus" value = "6桁足し算">
+        <input type="button" id = "digit3plus10" value = "3桁足し算10回">
     </span>
         <div style="text-align:center">
         <p>
@@ -41,11 +42,16 @@
         const digit4plus = document.getElementById('digit4plus')
         const digit5plus = document.getElementById('digit5plus')
         const digit6plus = document.getElementById('digit6plus')
+        const digit3plus10 = document.getElementById('digit3plus10')
         let answer = 0
+        let challenge = 0
+        let challengenumber = 0
         let min = 0
         let max = 0
         let i = 0
         let m = 0
+        let quesnum = 0
+        let correctnum = 0
         let res = 0
         function generate(min,max){
             res = Math.floor(Math.random() * (max - min + 1)) + min
@@ -59,6 +65,10 @@
             m = 0
         }
         digit3plus.addEventListener('click', () => {
+            if(challenge == 1){
+                correct.textContent = ('連続して問題をやっている時に他の問題に移る事はできません！')
+                return;
+            }
             correct.textContent = ('')
             min = 100
             max = 999
@@ -70,6 +80,10 @@
             num2.textContent = m
         })
         digit4plus.addEventListener('click', () => {
+            if(challenge == 1){
+                correct.textContent = ('連続して問題をやっている時に他の問題に移る事はできません！')
+                return;
+            }
             correct.textContent = ('')
             min = 1000
             max = 9999
@@ -81,6 +95,10 @@
             num2.textContent = m
         })
         digit5plus.addEventListener('click', () => {
+            if(challenge == 1){
+                correct.textContent = ('連続して問題をやっている時に他の問題に移る事はできません！')
+                return;
+            }
             correct.textContent = ('')
             min = 10000
             max = 99999
@@ -92,6 +110,10 @@
             num2.textContent = m
         })
         digit6plus.addEventListener('click', () => {
+            if(challenge == 1){
+                correct.textContent = ('連続して問題をやっている時に他の問題に移る事はできません！')
+                return;
+            }
             correct.textContent = ('')
             min = 100000
             max = 999999
@@ -101,6 +123,29 @@
             sign.textContent = ('+')
             num1.textContent = i
             num2.textContent = m
+        })
+        function digit3plus10f(){
+            if(quesnum == 10){
+                correct.textContent = ('あなたの正解数は...') + correctnum + ('問です！')
+                quesnum = 0
+                correctnum = 0
+                challengenumber = 0
+                challenge = 0
+                return;
+            }
+            min = 100
+            max = 999
+            i = generate(min,max)
+            m = generate(min,max)
+            answer = i + m
+            sign.textContent = ('+')
+            num1.textContent = i
+            num2.textContent = m
+        }
+        digit3plus10.addEventListener('click', () => {
+            challenge = 1
+            digit3plus10f()
+
         })
         answerbutton.addEventListener('click', () => {
             if(answer == 0){
@@ -113,11 +158,22 @@
         const useranswer = usercontent.value
             if(useranswer == answer){
                 correct.textContent = ('正解！')
+                if(challenge == 1){
+                    correctnum += 1
+                    quesnum += 1
+                }
             }
             else{
+                if(challenge == 1){
+                    quesnum += 1
+                }
                 correct.textContent = ('不正解...正しい回答は    ' + answer)
             }
             reset()
+            if(challengenumber = 1){
+                digit3plus10f()
+            }
+            
         })
     </script>
 </body>
