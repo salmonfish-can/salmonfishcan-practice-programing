@@ -30,6 +30,7 @@
             <input type="button" id = "answerbutton" value="解答">
         </p>
         <p id = "correct"></p>
+        <p id = "whatques"></p>
     </div>
     <script>
         const num1 = document.getElementById('num1')
@@ -38,6 +39,7 @@
         const usercontent = document.getElementById('useranswer')
         const answerbutton = document.getElementById('answerbutton')
         const correct = document.getElementById('correct')
+        const whatques = document.getElementById('whatques')
         const digit3plus = document.getElementById('digit3plus')
         const digit4plus = document.getElementById('digit4plus')
         const digit5plus = document.getElementById('digit5plus')
@@ -133,6 +135,7 @@
                 challenge = 0
                 return;
             }
+            whatques.textContent = ('今の問題数') + (quesnum + 1)
             min = 100
             max = 999
             i = generate(min,max)
