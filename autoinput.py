@@ -11,7 +11,11 @@ pyautogui.PAUSE = 0
 def click():
     time.sleep(3)
     i = 0
-    count = int(clickinput.get())
+    try:
+        count = int(clickinput.get())
+        caution.pack_forget()
+    except:
+        caution.pack()
     while(i < count):
         pyautogui.click()
         i = i + 1
@@ -21,6 +25,7 @@ def updatepause():
     try:
         pause = float(temp)
         pyautogui.PAUSE = pause
+        caution.pack_forget()
     except:
         caution.pack()
 def failsafeonoff():
