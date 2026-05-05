@@ -4,11 +4,11 @@ import time
 root = tk.Tk()
 root.title('オートクリッカー')
 root.geometry('500x900')
-pause = 0
+pause = 0.1
 failsafe = True
 mode = 0
 pyautogui.FAILSAFE = failsafe
-pyautogui.PAUSE = 0
+pyautogui.PAUSE = 0.1
 def click():
     time.sleep(3)
     i = 0
@@ -85,11 +85,11 @@ clickinput = tk.Entry(normal, width=10)
 clickinput.pack(pady=10)
 pausecontrol = tk.Button(normal,text="間隔を決定",command=updatepause)
 pausecontrol.pack(pady=50)
-expl2 = tk.Label(normal,text="入力する間隔を入力（デフォルト0）")
+expl2 = tk.Label(normal,text="入力する間隔を入力（デフォルト0.1）")
 expl2.pack(pady = 0)
 pauseinput = tk.Entry(normal,width=10)
 pauseinput.pack(pady=10)
-nowpause = tk.Label(normal,text="間隔:0秒ごとに一回")
+nowpause = tk.Label(normal,text="間隔:0.1秒ごとに一回")
 nowpause.pack()
 failsafebutton = tk.Button(normal,text="failsafeを切り替え",command=failsafeonoff)
 failsafebutton.pack(pady=10)
