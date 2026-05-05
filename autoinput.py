@@ -12,7 +12,6 @@ enter = 0
 pyautogui.FAILSAFE = failsafe
 pyautogui.PAUSE = 0.1
 def click():
-    time.sleep(3)
     i = 0
     try:
         count = int(clickinput.get())
@@ -23,6 +22,7 @@ def click():
     except:
         caution.pack()
         return
+    time.sleep(3)
     while(i < count):
         pyautogui.click()
         i = i + 1
@@ -34,7 +34,6 @@ def easyclick(count):
         i = i + 1
 def character():
     global enter
-    time.sleep(3)
     i = 0
     try:
         content = str(characterinput.get("1.0", "end-1c"))
@@ -45,6 +44,7 @@ def character():
     except:
         caution.pack()
         return
+    time.sleep(3)
     pyperclip.copy(content)
     if(enter == 0):
         while(i < count):
