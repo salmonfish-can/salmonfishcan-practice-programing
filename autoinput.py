@@ -84,6 +84,8 @@ click100 = tk.Button(easy,text="100回クリック",command=lambda: easyclick(10
 click100.pack()
 click1000 = tk.Button(easy,text="1000回クリック",command=lambda: easyclick(1000))
 click1000.pack()
+click10000 = tk.Button(easy,text="10000回クリック",command=lambda: easyclick(10000))
+click10000.pack()
 modebutton.pack()
 normal.pack()
 easy.pack_forget()
