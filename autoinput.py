@@ -2,7 +2,7 @@ import tkinter as tk
 import pyautogui
 import time
 root = tk.Tk()
-root.title('メモ作成・保存')
+root.title('オートクリッカー')
 root.geometry('500x450')
 pause = 0
 pyautogui.FAILSAFE = False
