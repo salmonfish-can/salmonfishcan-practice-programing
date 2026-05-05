@@ -89,13 +89,11 @@ def failsafeonoff():
     if(failsafe == True):
         failsafe = False
         pyautogui.FAILSAFE = failsafe
-        failsafeon.pack_forget()
-        failsafeoff.pack(pady=10)
+        failsafelabel.config(text="現在failsafeはOFFです")
     else:
         failsafe = True
         pyautogui.FAILSAFE = failsafe
-        failsafeoff.pack_forget()
-        failsafeon.pack(pady=10)
+        failsafelabel.config(text="現在failsafeはONです")
 def modechange():
     global mode
     if(mode == 0):
@@ -130,9 +128,8 @@ nowpause = tk.Label(normal,text="間隔:0.1秒ごとに一回")
 nowpause.pack()
 failsafebutton = tk.Button(normal,text="failsafeを切り替え",command=failsafeonoff)
 failsafebutton.pack(pady=10)
-failsafeon = tk.Label(normal,text="現在failsafeはONです")
-failsafeoff = tk.Label(normal,text="現在failsafeはOFFです")
-failsafeon.pack(pady=10)
+failsafelabel = tk.Label(normal,text="現在failsafeはONです")
+failsafelabel.pack(pady=10)
 characterlabel = tk.Label(normal,text="文字を入力")
 characterlabel.pack(pady=0)
 characterinput = tk.Text(normal,width=20,height=3)
