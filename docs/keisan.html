@@ -147,6 +147,7 @@
         }
         digit3plus10.addEventListener('click', () => {
             challenge = 1
+            challengenumber = 1
             digit3plus10f()
 
         })
@@ -173,7 +174,7 @@
                 correct.textContent = ('不正解...正しい回答は    ' + answer)
             }
             reset()
-            if(challengenumber = 1){
+            if(challengenumber == 1){
                 digit3plus10f()
             }
             
