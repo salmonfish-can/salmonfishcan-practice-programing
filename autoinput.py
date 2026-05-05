@@ -3,7 +3,7 @@ import pyperclip
 import pyautogui
 import time
 root = tk.Tk()
-root.title('オートクリッカー')
+root.title('自動入力用')
 root.geometry('500x900')
 pause = 0.1
 failsafe = True
