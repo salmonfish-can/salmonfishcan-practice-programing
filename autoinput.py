@@ -41,7 +41,7 @@ def updatepause():
         pyautogui.PAUSE = pause
         caution.pack_forget()
         disptemp = str(temp)
-        nowpause.config(text="現在の間隔は" + disptemp + "秒ごとです")
+        nowpause.config(text="間隔:" + disptemp + "秒ごとに一回")
     except:
         caution.pack()
         return
@@ -50,7 +50,7 @@ def easyupdatepause(newpause):
     pause = newpause
     pyautogui.PAUSE = pause
     dispnewpause = str(newpause)
-    nowpause.config(text="現在の間隔は" + dispnewpause + "秒ごとです")
+    nowpause.config(text="間隔:" + dispnewpause + "秒ごとに一回")
 def failsafeonoff():
     global failsafe
     if(failsafe == True):
@@ -89,9 +89,9 @@ expl2 = tk.Label(normal,text="入力する間隔を入力（デフォルト0）"
 expl2.pack(pady = 0)
 pauseinput = tk.Entry(normal,width=10)
 pauseinput.pack(pady=10)
-nowpause = tk.Label(normal,text="今の間隔は0秒ごとです")
+nowpause = tk.Label(normal,text="間隔:0秒ごとに一回")
 nowpause.pack()
-failsafebutton = tk.Button(normal,text="failsafeを切り替え（デフォルトはON）",command=failsafeonoff)
+failsafebutton = tk.Button(normal,text="failsafeを切り替え",command=failsafeonoff)
 failsafebutton.pack(pady=10)
 failsafeon = tk.Label(normal,text="現在failsafeはONです")
 failsafeoff = tk.Label(normal,text="現在failsafeはOFFです")
