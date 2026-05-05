@@ -68,11 +68,15 @@ def modechange():
     if(mode == 0):
         mode = 1
         normal.pack_forget()
+        easypause.pack_forget()
         easy.pack()
+        easypause.pack()
     else:
         mode = 0
         easy.pack_forget()
+        easypause.pack_forget()
         normal.pack()
+        easypause.pack()
 normal = tk.Frame(root,pady=10)
 easy = tk.Frame(root,pady=10)
 easypause = tk.Frame(root,pady=10)
