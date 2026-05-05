@@ -16,6 +16,7 @@ def click():
         caution.pack_forget()
     except:
         caution.pack()
+        return
     while(i < count):
         pyautogui.click()
         i = i + 1
@@ -28,6 +29,7 @@ def updatepause():
         caution.pack_forget()
     except:
         caution.pack()
+        return
 def failsafeonoff():
     global failsafe
     if(failsafe == True):
