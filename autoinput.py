@@ -44,6 +44,7 @@ def character():
     except:
         caution.pack()
         return
+    caution.pack_forget()
     time.sleep(3)
     pyperclip.copy(content)
     if(enter == 0):
