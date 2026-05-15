@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang=ja>
+<head>
+    <meta charset="UTF-8">
+    <title>元素</title>
+    <style>
+        body {background-color:darkcyan}
+    </style>
+    <link rel="icon" href="favicon.ico">
+</head>
+<body>
+    <input type="button" value="記号で出題" id="kigou">
+    <input type="button" value="名前で出題" id="namae">
+    <input type="text" placeholder="出題数" id="num">
+    <input type="text" placeholder="出題範囲（数字で！）" id="saitei">
+    <span>～</span>
+    <input type="text" placeholder="出題範囲（数字で！）" id="saikou">
+    <span>順番でやるか</span>
+    <input type="checkbox" id="zyunban">
+    <div style="text-align:center">
+        <p id="disp">問題</p>
+        <p id="yesno"></p>
+        <input type="text" id="answer" placeholder="解答を入力...">
+        <input type="button" id="confirm" value="解答！">
+    </div>
+    <script>
+        const kigou = document.getElementById('kigou')
+        const namae = document.getElementById('namae')
+        const saitei = document.getElementById('saitei')
+        const saikou = document.getElementById('saikou')
+        const zyunban = document.getElementById('zyunban')
+        const disp = document.getElementById('disp')
+        const answer = document.getElementById('answer')
+        const yesno = document.getElementById('yesno')
+        const confirm = document.getElementById('confirm')
+        const num = document.getElementById('num')
+        let type = "none"
+        let min = 0
+        let max = 0
+        let res = 0
+        let ques = 0
+        let ans = 0
+        let quesnum = 0
+        let maxnum = 0
+        const kigouitiran = [
+            null,
+            'H','He','Li','Be','B','C','N','O','F','Ne',
+            'Na','Mg','Al','Si','P','S','Cl','Ar','K','Ca',
+            'Sc','Ti','V','Cr','Mn','Fe','Co','Ni','Cu','Zn',
+            'Ga','Ge','As','Se','Br','Kr','Rb','Sr','Y','Zr',
+            'Nb','Mo','Tc','Ru','Rh','Pd','Ag','Cd','In','Sn',
+            'Sb','Te','I','Xe','Cs','Ba','La','Ce','Pr','Nd',
+            'Pm','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb',
+            'Lu','Hf','Ta','W','Re','Os','Ir','Pt','Au','Hg',
+            'Tl','Pb','Bi','Po','At','Rn','Fr','Ra','Ac','Th',
+            'Pa','U','Np','Pu','Am','Cm','Bk','Cf','Es','Fm',
+            'Md','No','Lr','Rf','Db','Sg','Bh','Hs','Mt','Ds',
+            'Rg','Cn','Nh','Fl','Mc','Lv','Ts','Og'
+        ]
+        const namaeitiran = [
+            null,
+            '水素','ヘリウム','リチウム','ベリリウム','ホウ素','炭素','窒素','酸素','フッ素','ネオン',
+            'ナトリウム','マグネシウム','アルミニウム','ケイ素','リン','硫黄','塩素','アルゴン','カリウム','カルシウム',
+            'スカンジウム','チタン','バナジウム','クロム','マンガン','鉄','コバルト','ニッケル','銅','亜鉛',
+            'ガリウム','ゲルマニウム','ヒ素','セレン','臭素','クリプトン','ルビジウム','ストロンチウム','イットリウム','ジルコニウム',
+            'ニオブ','モリブデン','テクネチウム','ルテニウム','ロジウム','パラジウム','銀','カドミウム','インジウム','スズ',
+            'アンチモン','テルル','ヨウ素','キセノン','セシウム','バリウム','ランタン','セリウム','プラセオジム','ネオジム',
+            'プロメチウム','サマリウム','ユウロピウム','ガドリニウム','テルビウム','ジスプロシウム','ホルミウム','エルビウム','ツリウム','イッテルビウム',
+            'ルテチウム','ハフニウム','タンタル','タングステン','レニウム','オスミウム','イリジウム','白金','金','水銀',
+            'タリウム','鉛','ビスマス','ポロニウム','アスタチン','ラドン','フランシウム','ラジウム','アクチニウム','トリウム',
+            'プロトアクチニウム','ウラン','ネプツニウム','プルトニウム','アメリシウム','キュリウム','バークリウム','カリホルニウム','アインスタイニウム','フェルミウム',
+            'メンデレビウム','ノーベリウム','ローレンシウム','ラザホージウム','ドブニウム','シーボーギウム','ボーリウム','ハッシウム','マイトネリウム','ダームスタチウム',
+            'レントゲニウム','コペルニシウム','ニホニウム','フレロビウム','モスコビウム','リバモリウム','テネシン','オガネソン'
+        ]
+        function generate(min,max,type){
+            const rand = Math.floor(Math.random() * (max - min + 1)) + min
+            if(type == "kigou"){
+                let res1 = kigouitiran[rand]
+                let res2 = namaeitiran[rand]
+                let result = [res1,res2]
+                return(result)
+            }
+        }
+        function fkigou(){
+            if(quesnum == maxnum)
+            return
+            min = Number(saitei.value)
+            max = Number(saikou.value)
+            res = generate(min,max,"kigou")
+            ques = res[0]
+            ans = res[1]
+            disp.textContent = ques
+        }
+        kigou.addEventListener('click', () => {
+            maxnum = Number(num.value)
+            fkigou()
+        })
+        confirm.addEventListener('click', () => {
+            const cv = answer.value
+            if(cv == ans){
+                yesno.textContent = '正解！'
+            }
+            else{
+                yesno.textContent = '不正解...  正しい回答は  ' + ans
+            }
+            answer.value = ""
+            quesnum += 1
+            fkigou()
+        })
+    </script>
+</body>
