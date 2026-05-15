@@ -20,6 +20,7 @@
     <div style="text-align:center">
         <p id="disp">問題</p>
         <p id="yesno"></p>
+        <p id="zatuyou"></p>
         <input type="text" id="answer" placeholder="解答を入力...">
         <input type="button" id="confirm" value="解答！">
     </div>
@@ -34,6 +35,7 @@
         const yesno = document.getElementById('yesno')
         const confirm = document.getElementById('confirm')
         const num = document.getElementById('num')
+        const zatuyou = document.getElementById('zatuyou')
         let type = "none"
         let min = 0
         let max = 0
@@ -74,16 +76,16 @@
         ]
         function generate(min,max,type){
             const rand = Math.floor(Math.random() * (max - min + 1)) + min
-            if(type == "kigou"){
-                let res1 = kigouitiran[rand]
-                let res2 = namaeitiran[rand]
-                let result = [res1,res2]
-                return(result)
-            }
+            let res1 = kigouitiran[rand]
+            let res2 = namaeitiran[rand]
+            let result = [res1,res2]
+            return(result)
         }
         function fkigou(){
-            if(quesnum == maxnum)
-            return
+            if(quesnum == maxnum){
+                zatuyou.textContent = "お疲れさまでした！"
+                return
+            }
             min = Number(saitei.value)
             max = Number(saikou.value)
             res = generate(min,max,"kigou")
@@ -91,9 +93,27 @@
             ans = res[1]
             disp.textContent = ques
         }
+        function fnamae(){
+            if(quesnum == maxnum){
+                zatuyou.textContent = "お疲れさまでした！"
+                return
+            }
+            min = Number(saitei.value)
+            max = Number(saikou.value)
+            res = generate(min,max,"kigou")
+            ques = res[1]
+            ans = res[0]
+            disp.textContent = ques
+        }
         kigou.addEventListener('click', () => {
             maxnum = Number(num.value)
+            type = "kigou"
             fkigou()
+        })
+        namae.addEventListener('click', () => {
+            maxnum = Number(num.value)
+            type = "namae"
+            fnamae()
         })
         confirm.addEventListener('click', () => {
             const cv = answer.value
@@ -105,7 +125,12 @@
             }
             answer.value = ""
             quesnum += 1
-            fkigou()
+            if(type == "kigou"){
+                fkigou()
+            }
+            else{
+                fnamae()
+            }
         })
     </script>
 </body>
