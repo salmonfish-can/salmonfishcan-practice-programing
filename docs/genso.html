@@ -22,6 +22,7 @@
         <p id="yesno"></p>
         <p id="zatuyou"></p>
         <p id="dispnum"></p>
+        <p id="kaisetu"></p>
         <input type="text" id="answer" placeholder="解答を入力...">
         <input type="button" id="confirm" value="解答！">
     </div>
@@ -38,6 +39,7 @@
         const num = document.getElementById('num')
         const zatuyou = document.getElementById('zatuyou')
         const dispnum = document.getElementById('dispnum')
+        const kaisetu = document.getElementById('kaisetu')
         let type = "none"
         let min = 0
         let max = 0
@@ -47,6 +49,8 @@
         let quesnum = 0
         let maxnum = 0
         let w = []
+        let gensonumber = 0
+        let rand = 0
         const kigouitiran = [
             null,
             'H','He','Li','Be','B','C','N','O','F','Ne',
@@ -89,14 +93,19 @@
             dispnum.textContent = ""
         }
         function generate(min,max,type){
-            const rand = Math.floor(Math.random() * (max - min + 1)) + min
-            let res1 = kigouitiran[rand]
-            let res2 = namaeitiran[rand]
-            let result = [res1,res2]
             const size = max - min + 1
             if(w.length == size){
                 w.length = 0
             }
+            if(zyunban.checked){
+                rand = w.length + min
+            }
+            else{
+                rand = Math.floor(Math.random() * (max - min + 1)) + min
+            }
+            let res1 = kigouitiran[rand]
+            let res2 = namaeitiran[rand]
+            let result = [res1,res2,rand]
             if(w.includes(res1) && w.length != size){
                 return generate(min,max,type)
             }
@@ -121,6 +130,7 @@
             res = generate(min,max,"kigou")
             ques = res[0]
             ans = res[1]
+            gensonumber = res[2]
             disp.textContent = ques
         }
         function fnamae(){
@@ -141,6 +151,7 @@
             res = generate(min,max,"kigou")
             ques = res[1]
             ans = res[0]
+            gensonumber = res[2]
             disp.textContent = ques
         }
         kigou.addEventListener('click', () => {
@@ -177,7 +188,7 @@
                 yesno.textContent = '正解！'
             }
             else{
-                yesno.textContent = '不正解...  正しい回答は  ' + ans
+                yesno.textContent = '不正解...  正しい回答は  ' + ans + '(元素番号:' + gensonumber + ')'
             }
             answer.value = ""
             quesnum += 1
