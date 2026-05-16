@@ -21,6 +21,7 @@
         <p id="disp">問題</p>
         <p id="yesno"></p>
         <p id="zatuyou"></p>
+        <p id="dispnum"></p>
         <input type="text" id="answer" placeholder="解答を入力...">
         <input type="button" id="confirm" value="解答！">
     </div>
@@ -36,6 +37,7 @@
         const confirm = document.getElementById('confirm')
         const num = document.getElementById('num')
         const zatuyou = document.getElementById('zatuyou')
+        const dispnum = document.getElementById('dispnum')
         let type = "none"
         let min = 0
         let max = 0
@@ -44,6 +46,7 @@
         let ans = 0
         let quesnum = 0
         let maxnum = 0
+        let w = []
         const kigouitiran = [
             null,
             'H','He','Li','Be','B','C','N','O','F','Ne',
@@ -74,49 +77,102 @@
             'メンデレビウム','ノーベリウム','ローレンシウム','ラザホージウム','ドブニウム','シーボーギウム','ボーリウム','ハッシウム','マイトネリウム','ダームスタチウム',
             'レントゲニウム','コペルニシウム','ニホニウム','フレロビウム','モスコビウム','リバモリウム','テネシン','オガネソン'
         ]
+        function reset(){
+            min = 0
+            max = 0
+            type ="none"
+            ques = 0
+            ans = 0
+            quesnum = 0
+            maxnum = 0
+            w = []
+            dispnum.textContent = ""
+        }
         function generate(min,max,type){
             const rand = Math.floor(Math.random() * (max - min + 1)) + min
             let res1 = kigouitiran[rand]
             let res2 = namaeitiran[rand]
             let result = [res1,res2]
+            const size = max - min + 1
+            if(w.length == size){
+                w.length = 0
+            }
+            if(w.includes(res1) && w.length != size){
+                return generate(min,max,type)
+            }
+            w.push(res1)
             return(result)
         }
         function fkigou(){
-            if(quesnum == maxnum){
-                zatuyou.textContent = "お疲れさまでした！"
-                return
-            }
             min = Number(saitei.value)
             max = Number(saikou.value)
+            if(min == 0){
+                min = 1
+            }
+            if(max == 0){
+                max = 118
+            }
+            if(quesnum > maxnum){
+                zatuyou.textContent = "お疲れさまでした！"
+                disp.textContent = ""
+                reset()
+                return
+            }
             res = generate(min,max,"kigou")
             ques = res[0]
             ans = res[1]
             disp.textContent = ques
         }
         function fnamae(){
-            if(quesnum == maxnum){
-                zatuyou.textContent = "お疲れさまでした！"
-                return
-            }
             min = Number(saitei.value)
             max = Number(saikou.value)
+            if(min == 0){
+                min = 1
+            }
+            if(max == 0){
+                max = 118
+            }
+            if(quesnum > maxnum){
+                zatuyou.textContent = "お疲れさまでした！"
+                disp.textContent = ""
+                reset()
+                return
+            }
             res = generate(min,max,"kigou")
             ques = res[1]
             ans = res[0]
             disp.textContent = ques
         }
         kigou.addEventListener('click', () => {
+            zatuyou.textContent = ""
+            yesno.textContent = ""
+            dispnum.textContent = 1 + "問目"
+            quesnum += 1
             maxnum = Number(num.value)
+            if(maxnum == 0){
+                maxnum = 10
+            }
             type = "kigou"
             fkigou()
         })
         namae.addEventListener('click', () => {
+            zatuyou.textContent = ""
+            yesno.textContent = ""
+            dispnum.textContent = 1 + "問目"
+            quesnum += 1
             maxnum = Number(num.value)
+            if(maxnum == 0){
+                maxnum = 10
+            }
             type = "namae"
             fnamae()
         })
         confirm.addEventListener('click', () => {
             const cv = answer.value
+            if(maxnum == 0){
+                zatuyou.textContent = "モードを選んでから初めてください"
+                return
+            }
             if(cv == ans){
                 yesno.textContent = '正解！'
             }
@@ -125,6 +181,7 @@
             }
             answer.value = ""
             quesnum += 1
+            dispnum.textContent = quesnum + "問目"
             if(type == "kigou"){
                 fkigou()
             }
