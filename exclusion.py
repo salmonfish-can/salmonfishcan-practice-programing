@@ -9,7 +9,7 @@ def askcopy():
         print("もう一度入力してください...")
         askcopy()
 def htmclean(htmz):
-    tags = ['<br>','</br>','<p>','</p>','<script>','</script>','<div>','</div>','<head>','</head>','<body>','</body>']
+    tags = ['<br>','</br>','<p>','</p>','<script>','</script>','<div>','</div>','<head>','</head>','<body>','</body>','<h1>','</h1>','<h2>','</h2>','<h3>','</h3>','<h4>','</h4>','<h5>','</h5>','<h6>','</h6>']
     for tag in tags:
         htmz = htmz.replace(tag,"")
     return(htmz)
