@@ -60,10 +60,16 @@ static void bootalarm(int total)
         {
             Console.WriteLine($"{total}秒後にタイマーがなります");
             int keeptotal = total;
+            int Soon1 = 0;
             while(total > 0)
             {
                 total--;
                 Thread.Sleep(1000);
+                if(keeptotal / 2 >= total && Soon1 == 0)
+            {
+                Console.WriteLine($"あと{total}秒後になります");
+                Soon1 = 1;
+            }
             }
             Console.WriteLine("アラームが鳴ったよ");
             player.PlayLooping();
