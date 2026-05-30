@@ -1,0 +1,8 @@
+bin/
+obj/
+.vscode
+*.user
+*.userosscatch
+*.suo
+.DS_Store
+Thumbs.db
