@@ -73,8 +73,10 @@ static void bootalarm(int total)
             }
             }
             new ToastContentBuilder()
+                .SetToastScenario(ToastScenario.Reminder)
                 .AddText("アラームが鳴りました")
                 .AddText("アラーム")
+                .AddButton(new ToastButton("ok","Action=ok"))
                 .Show();
             Console.WriteLine("アラームが鳴ったよ");
             player.PlayLooping();
