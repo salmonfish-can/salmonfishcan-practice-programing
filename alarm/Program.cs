@@ -4,6 +4,7 @@ using System.Media;
 using System.Net.Mail;
 using System.Security;
 using System.Threading;
+using Microsoft.Toolkit.Uwp.Notifications;
 class Alarm
 {
     static SoundPlayer player;
@@ -71,6 +72,10 @@ static void bootalarm(int total)
                 Soon1 = 1;
             }
             }
+            new ToastContentBuilder()
+                .AddText("アラームが鳴りました")
+                .AddText("アラーム")
+                .Show();
             Console.WriteLine("アラームが鳴ったよ");
             player.PlayLooping();
             Console.WriteLine("アラームを止めるにはキーを押してください。");
