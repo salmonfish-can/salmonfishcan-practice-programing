@@ -7,3 +7,4 @@ obj/
 .DS_Store
 Thumbs.db
 pyportal-usersetting.json
+pyportal-memo.json
